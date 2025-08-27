@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Tekken 2</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    #arena {
+      width: 800px;
+      height: 300px;
+      margin: 40px auto;
+      background: #222;
+      position: relative;
+      border: 2px solid #555;
+    }
+    .fighter {
+      width: 80px;
+      height: 120px;
+      position: absolute;
+      bottom: 0;
+    }
+    #fighter1 {
+      left: 100px;
+      background: crimson;
+    }
+    #fighter2 {
+      right: 100px;
+      background: royalblue;
+    }
+    .health-bar {
+      width: 300px;
+      height: 20px;
+      background: #444;
+      margin: 10px auto;
+      position: relative;
+    }
+    .health {
+      height: 100%;
+      background: limegreen;
+    }
+    #winner {
+      font-size: 24px;
+      margin-top: 20px;
+      color: gold;
+    }
+  </style>
+</head>
+<body>
 
+<h1>Mini Tekken 2</h1>
+
+<div class="health-bar"><div id="health1" class="health" style="width: 100%;"></div></div>
+<div class="health-bar"><div id="health2" class="health" style="width: 100%;"></div></div>
+
+<div id="arena">
+  <div id="fighter1" class="fighter"></div>
+  <div id="fighter2" class="fighter"></div>
+</div>
+
+<div id="winner"></div>
+
+<script>
+  let health1 = 100;
+  let health2 = 100;
+
+  const healthBar1 = document.getElementById("health1");
+  const healthBar2 = document.getElementById("health2");
+  const winnerText = document.getElementById("winner");
+
+  document.addEventListener("keydown", function(e) {
+    if (winnerText.textContent) return;
+
+    if (e.key === "q") {
+      health2 -= 10;
+    } else if (e.key === "p") {
+      health1 -= 10;
+    }
+
+    health1 = Math.max(0, health1);
+    health2 = Math.max(0, health2);
+
+    healthBar1.style.width = health1 + "%";
+    healthBar2.style.width = health2 + "%";
+
+    if (health1 <= 0) {
+      winnerText.textContent = "Player 2 Wins!";
+    } else if (health2 <= 0) {
+      winnerText.textContent = "Player 1 Wins!";
+    }
+  });
+</script>
+
+</body>
+</html>
